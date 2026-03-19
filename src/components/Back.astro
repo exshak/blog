@@ -1,0 +1,21 @@
+---
+const href = Astro.url.pathname.split('/').slice(0, -1).join('/') || '/'
+---
+
+<div class="mt-12 flex justify-between">
+  <div class="font-mono">
+    <span class="op-50">❯ </span>
+    <a href={href} class="op-50 hover:op-75 border-b-none!">cd ..</a>
+  </div>
+  <div class="links flex gap-4">
+    <a href="https://linkedin.com/in/exshak" target="_blank" aria-label="LinkedIn">
+      <div class="i-uil:linkedin-alt"></div>
+    </a>
+    <a href="https://twitter.com/exshak" target="_blank" aria-label="Twitter">
+      <div class="i-uil:twitter-alt"></div>
+    </a>
+    <a href="https://github.com/exshak" target="_blank" aria-label="GitHub">
+      <div class="i-uil:github-alt"></div>
+    </a>
+  </div>
+</div>

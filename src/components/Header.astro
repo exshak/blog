@@ -1,0 +1,27 @@
+---
+import Search from '~/components/Search.astro'
+import Theme from '~/components/Theme.astro'
+import Logo from '/public/favicon.svg'
+---
+
+<header class="p-8">
+  <nav class="relative flex justify-end">
+    <div class="absolute left--1 top--1">
+      <a href="/" class="op-100" aria-label="exshak.com">
+        <Logo width={48} />
+      </a>
+    </div>
+    <div class="grid grid-flow-col gap-4">
+      <a href="/blog" aria-label="Blog">
+        <span class="lt-md:hidden">Blog</span>
+        <div class="i-uil:book-alt md:hidden"></div>
+      </a>
+      <a href="/projects" aria-label="Projects">
+        <span class="lt-md:hidden">Projects</span>
+        <div class="i-uil:lightbulb-alt md:hidden"></div>
+      </a>
+      <Search />
+      <Theme />
+    </div>
+  </nav>
+</header>

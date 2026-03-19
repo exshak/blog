@@ -1,0 +1,22 @@
+<button id="to-top" title="top" class="op-0 hover:(op-100! bg-#88888833) fixed bottom-5 right-5 h-10 w-10 rounded-full">
+  <div i-ri-arrow-up-line></div>
+</button>
+
+<script>
+  const top = document.getElementById('to-top')
+
+  const handleClick = () => window.scrollTo({ top: 0, behavior: 'smooth' })
+  top?.addEventListener('click', handleClick)
+
+  const handleScroll = () => {
+    const scrollY = window.scrollY || document.documentElement.scrollTop
+    if (top && scrollY <= 300) {
+      top.style.opacity = '0'
+      top.style.pointerEvents = 'none'
+    } else if (top) {
+      top.style.opacity = '0.3'
+      top.style.pointerEvents = 'auto'
+    }
+  }
+  window.addEventListener('scroll', handleScroll)
+</script>

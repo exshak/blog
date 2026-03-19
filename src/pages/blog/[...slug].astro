@@ -1,0 +1,39 @@
+---
+import { render } from 'astro:content'
+import Toc from '~/components/Toc.astro'
+import Layout from '~/layouts/Layout.astro'
+import { fetchPosts, formatDate } from '~/utils'
+
+export async function getStaticPaths() {
+  const posts = await fetchPosts()
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: post,
+  }))
+}
+
+const post = Astro.props
+const { Content, headings } = await render(post)
+---
+
+<Layout {...post}>
+  <p class="op-50 mb-8! mt--6! flex items-center gap-2">
+    <span>{formatDate(post.date)}</span>
+    <span class="i-ph:clock"></span>
+    <span>{post.time} min</span>
+    <span class="i-ph:eye"></span>
+    <span id="views"></span>
+  </p>
+  <Toc {headings} />
+  <Content />
+</Layout>
+
+<script>
+  const views = document.getElementById('views')
+  const api = 'https://hits.seeyoufarm.com/api/count/incr/badge.svg?url='
+  const url = api + encodeURIComponent(window.location.href) + '&'
+  const res = await fetch('https://corsproxy.io/?' + encodeURIComponent(url))
+  const svg = await res.text()
+  const hit = svg.match(/ \/ (\d+)/)
+  if (views) views.textContent = hit && hit[1]
+</script>

@@ -1,0 +1,38 @@
+<input id="search-input" placeholder="Search" autocomplete="off" class="focus:(w-30 op-100) w-0 pl-5 text-sm" />
+
+<div id="search-results" class="w-30rem max-h-82vh lt-md:(w-90% left-5% right-5%) z-1 fixed top-20 hidden p-2"></div>
+
+<script is:inline>
+  const input = document.getElementById('search-input')
+  const panel = document.getElementById('search-results')
+
+  const handleOpen = () => {
+    panel.classList.contains('hidden') && panel.classList.toggle('hidden')
+    input.setSelectionRange(-1, -1)
+  }
+  input.addEventListener('click', handleOpen)
+
+  const handleClose = (event) => {
+    const target = event.target
+    const isOutside = target instanceof Node && !panel.contains(target) && !input.contains(target)
+    const isResults = target instanceof HTMLElement && target.closest('#search-results') && target.closest('a')
+    if (isOutside || isResults) panel.classList.add('hidden')
+  }
+  document.addEventListener('click', (event) => handleClose(event))
+
+  const handleInput = async (event) => {
+    window.pagefind ??= await import('/pagefind/pagefind.js')
+    pagefind.init()
+    panel.innerHTML = ''
+    const search = await pagefind.search(event.target.value)
+    for (const result of search.results) {
+      const data = await result.data()
+      panel.innerHTML += `
+      <a href="${data.url.replace(/\.html/, '')}" class="search-results-url">
+        <div class="search-results-title">${data.meta.title}</div>
+        <div class="search-results-excerpt">${data.excerpt}</div>
+      </a>`
+    }
+  }
+  input.addEventListener('input', (event) => handleInput(event))
+</script>

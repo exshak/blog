@@ -1,0 +1,42 @@
+---
+import { SITE, WORK } from '~/consts'
+import Layout from '~/layouts/Layout.astro'
+---
+
+<Layout title={SITE.title}>
+  <p>Hi there, I'm Shak</p>
+  <!-- prettier-ignore -->
+  <p class="magic">
+    Working {WORK['w'].map(p => <a href={p.link} target="_blank"><span class={p.icon} />{p.name}</a>)}<br />
+    Maintaining {WORK['m'].map(p => <a href={p.link} target="_blank"><span class={p.icon} />{p.name}</a>)}<br />
+  </p>
+  <p>
+    I'm a software developer & systems engineer from Toronto with a passion for bringing ideas to life through code. You
+    can find a list of my <a href="/projects">projects here</a>.
+  </p>
+  <p>
+    I research & write <a href="/blog">blog posts</a> about software, hardware, technology, etc. Occasionally, I do coding
+    livestreams on <a href="https://twitch.tv/exshak">Twitch</a> & <a href="https://youtube.com/exshak">YouTube</a>.
+    Outside of <a href="/stats">programming</a>, I enjoy photography & traveling.
+  </p>
+  <p class="op-60">Email<span class="font-mono">: contact<span i-carbon-at></span>exshak.com</span></p>
+  <hr />
+  <p>
+    If you enjoy my work or find it useful, consider sponsoring me to help maintain and grow the open source ecosystem.
+    Thank you!
+  </p>
+  <div class="flex justify-center gap-2">
+    <a href="https://github.com/sponsors/exshak" target="_blank" class="btn-rose group">
+      <div i-ph-heart-duotone group-hover="i-ph-heart-fill text-rose"></div>
+      Sponsor
+    </a>
+    <a href="https://linkedin.com/in/exshak" target="_blank" class="btn-cyan group">
+      <div i-ph-linkedin-logo-duotone group-hover="i-ph-linkedin-logo-fill text-cyan"></div>
+      LinkedIn
+    </a>
+    <a href="https://github.com/exshak" target="_blank" class="btn-violet group">
+      <div i-ph-github-logo-duotone group-hover="i-ph-github-logo-fill text-violet"></div>
+      GitHub
+    </a>
+  </div>
+</Layout>

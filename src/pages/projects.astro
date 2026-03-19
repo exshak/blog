@@ -1,0 +1,51 @@
+---
+import { PROJECTS } from '~/consts'
+import Layout from '~/layouts/Layout.astro'
+---
+
+<Layout title="Projects">
+  <p class="op-50 mt--5! italic">Projects I'm creating or maintaining</p>
+  {
+    Object.keys(PROJECTS).map((key) => (
+      <>
+        <div class="pointer-events-none relative h-20 select-none">
+          <span class="text-5em color-transparent text-stroke-1 text-stroke-hex-aaa op-20 leading-1em absolute left--4 font-bold">
+            {key}
+          </span>
+        </div>
+        <div class="md:cols-2 grid gap-4 py-4">
+          {PROJECTS[key as keyof typeof PROJECTS].map((project) => (
+            <a href={project.link} target="_blank" class="item hover:bg-#88888811 flex rounded-md px-3.5 pb-3.5 pt-2 text-lg"> <!-- prettier-ignore -->
+              <div class="pr-5 pt-2">
+                <div class={`op-50 text-3xl ${project.icon}`} />
+              </div>
+              <div class="flex-auto">
+                <div>{project.name}</div>
+                <div class="op-50 text-sm">{project.desc}</div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </>
+    ))
+  }
+  <hr />
+  <p>
+    If you enjoy my work or find it useful, consider sponsoring me to help maintain and grow the open source ecosystem.
+    Thank you!
+  </p>
+  <div class="flex justify-center gap-2">
+    <a href="https://github.com/sponsors/exshak" target="_blank" class="btn-rose group">
+      <div i-ph-heart-duotone group-hover="i-ph-heart-fill text-rose"></div>
+      Sponsor
+    </a>
+    <a href="https://github.com/exshak/exshak" target="_blank" class="btn-cyan group">
+      <div i-ph-diamonds-four-duotone group-hover="i-ph-diamonds-four-fill text-cyan"></div>
+      Metrics
+    </a>
+    <a href="https://github.com/exshak" target="_blank" class="btn-violet group">
+      <div i-ph-github-logo-duotone group-hover="i-ph-github-logo-fill text-violet"></div>
+      GitHub
+    </a>
+  </div>
+</Layout>

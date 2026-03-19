@@ -1,0 +1,36 @@
+---
+import { BLOG } from '~/consts'
+import Layout from '~/layouts/Layout.astro'
+import { fetchPosts, formatDate } from '~/utils'
+
+const posts = [...BLOG, ...(await fetchPosts())].sort((a, b) => b.date.valueOf() - a.date.valueOf())
+const getYear = (a: Date) => new Date(a).getFullYear()
+const isSameYear = (a: Date, b: Date) => a && b && getYear(a) === getYear(b)
+---
+
+<Layout title="Blog">
+  <p class="op-50 mt--5! italic">Collection of ideas and useful content</p>
+  <ul>
+    {
+      posts.map((post: any, i) => (
+        <>
+          {!isSameYear(post.date, posts[i - 1]?.date) && (
+            <div class="pointer-events-none relative h-20 select-none">
+              <span class="text-8em color-transparent text-stroke-2 text-stroke-hex-aaa op-10 lt-md:left--8 absolute left--12 top--8 font-bold">
+                {getYear(post.date)}
+              </span>
+            </div>
+          )}
+          <a href={post.link ?? `/blog/${post.id}`} target={post.link && '_blank'} class="item mb-6 block">
+            <li class="flex items-center gap-2">
+              <span class="leading-1.3em text-lg">{post.title}</span>
+              {post.link && <span class="i-carbon:arrow-up-right text-0.5em mb-2 ml--1" />}
+              <span class="op-50 text-sm">{formatDate(post.date, false)}</span>
+              <span class="op-40 text-sm">· {post.time} min</span>
+            </li>
+          </a>
+        </>
+      ))
+    }
+  </ul>
+</Layout>

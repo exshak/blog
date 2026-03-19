@@ -1,0 +1,16 @@
+---
+import { type TocItem } from '~/utils'
+
+const { toc } = Astro.props
+---
+
+<ul>
+  {
+    toc.map((heading: TocItem) => (
+      <li>
+        <a href={'#' + heading.slug}>{heading.text}</a>
+        {heading.children.length > 0 && <Astro.self toc={heading.children} />}
+      </li>
+    ))
+  }
+</ul>
